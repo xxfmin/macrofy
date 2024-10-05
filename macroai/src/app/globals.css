@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@font-face {
+  font-family: 'Nexa Heavy';
+  src: url('./fonts/Nexa-Heavy.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cream Cake';
+  src: url('./fonts/Cream Cake.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nexa Thin';
+  src: url('./fonts/Nexa-Thin.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.custom-font {
+  font-family: 'Cream Cake', sans-serif;
+}
+.header-font {
+  font-family: 'Nexa Heavy', sans-serif;
+}
+body {
+  font-family: 'Nexa Thin', sans-serif;
+}
+.big-text {
+  font-size: 30px;
+}

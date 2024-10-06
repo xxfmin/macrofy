@@ -11,26 +11,9 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 
+app.use('/api/users', userRoutes);
 
 const PORT = 4000;
-
-
-app.post('/api/login', async (req, res) => {
-    const { username, password} = req.body;
-
-    const users = users.find(u => u.username === username);
-    if (!users) {
-        return res.status(401).json({ error: "Invalid username or password"});
-    }
-
-    const passwordValid = await bcrypt.compare(password, user.password);
-    if (!passwordValid) {
-        return res.status(401).json({ error: "Invalid username or password"});
-    }
-
-    res.status(200).json({ message: "Login successful", user: { username: user.username}})
-});
-
 
 console.log("Connecting to database");
 mongoose.connect("mongodb+srv://felipemin03:2huXUS1CYtXXbsA0@macroai.jqjtu.mongodb.net/?retryWrites=true&w=majority&appName=macroai").then(() => {
@@ -38,8 +21,6 @@ mongoose.connect("mongodb+srv://felipemin03:2huXUS1CYtXXbsA0@macroai.jqjtu.mongo
 }).catch((err) => {
     console.log(err);
 });
-
-app.use("/api/users", userRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

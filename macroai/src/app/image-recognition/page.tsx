@@ -3,8 +3,8 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import logo from "../components/images/logo.png";
 import { Roboto } from "next/font/google";
+import Navbar from "../components/Navbar/Navbar";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -76,20 +76,13 @@ export default function ImageRecognition() {
       className="bg-gradient-to-bl from-gray-900 to-blue-800 min-h-screen flex flex-col"
       style={{}}
     >
-      {/* Navigation Bar */}
-      <nav className="flex items-center pt-3 pl-12 absolute z-50 w-screen">
-        <Image
-          src={logo}
-          className="pr-2 w-[40px]"
-          width={50}
-          height={50}
-          alt="logo"
-        />
-        <h1 className={`text-white text-3xl ${roboto.className}`}>macrofy</h1>
-      </nav>
+      <head>
+        <title>macrofy</title>
+      </head>
+      <Navbar />
 
       {/* Main Content Split into Two Columns */}
-      <div className="flex flex-row w-full flex-grow pt-6">
+      <div className="flex flex-row w-full flex-grow pt-16">
         {/* Left Side: URL and Image */}
         <div className="w-1/2 p-8">
           <div className="border p-4 rounded-lg bg-white">

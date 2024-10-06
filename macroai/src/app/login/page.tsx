@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Roboto } from "next/font/google";
 import { useState } from "react";
-import logo from "../components/images/logo.png";
+import Navbar from "../components/Navbar/Navbar";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -19,16 +19,10 @@ export default function Login() {
 
   return (
     <div className="bg-gradient-to-bl from-gray-900 to-blue-800 w-screen h-screen flex-col text-white">
-      <nav className="flex items-center pt-3 pl-12 absolute z-50 w-screen">
-        <Image
-          src={logo}
-          className="pr-2 w-[40px]"
-          width={50}
-          height={50}
-          alt="logo"
-        />
-        <h1 className={`text-white text-3xl ${roboto.className}`}>macrofy</h1>
-      </nav>
+      <head>
+        <title>macrofy</title>
+      </head>
+      <Navbar />
       <div className="h-full w-full flex justify-center items-center">
         <div className="bg-white h-[500px] w-96 mb-10 rounded-lg">
           <div className="flex justify-center mt-20">

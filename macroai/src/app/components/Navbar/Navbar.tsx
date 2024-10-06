@@ -2,7 +2,6 @@
 import Image from "next/image";
 import logo from "../images/logo.png";
 import { useRouter } from "next/navigation";
-import { Roboto } from "next/font/google";
 
 export default function () {
   const router = useRouter();

@@ -90,7 +90,7 @@ export default function ImageRecognition() {
               <div className="w-full">
                 <label
                   htmlFor="image_url"
-                  className="block text-gray-700 text-sm font-bold"
+                  className="block text-gray-700 text-sm font-bold pb-3 pt-2"
                 >
                   Image URL
                 </label>
@@ -99,7 +99,7 @@ export default function ImageRecognition() {
                   type="text"
                   placeholder="Enter image URL here"
                   {...formik.getFieldProps("image_url")}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full pt-3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
                 {formik.touched.image_url && formik.errors.image_url ? (
                   <div style={{ color: "red" }}>{formik.errors.image_url}</div>

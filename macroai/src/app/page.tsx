@@ -12,20 +12,11 @@ const roboto = Roboto({
 
 export default function Home() {
   const router = useRouter();
-  const handleHome = () => {
-    router.push("/");
-  };
   const handleLogin = () => {
     router.push("/login");
   };
   const handleSignup = () => {
     router.push("/signup");
-  };
-  const handleLogMeal = () => {
-    router.push("/image-recognition");
-  };
-  const handleLogs = () => {
-    router.push("/Logs");
   };
   return (
     <div
@@ -35,9 +26,6 @@ export default function Home() {
         color: "white",
       }}
     >
-      <head>
-        <title>macrofy</title>
-      </head>
       <Navbar />
       <div className="h-fit w-fit flex">
         <div className="flex h-screen w-1/3">

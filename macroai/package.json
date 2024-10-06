@@ -20,6 +20,7 @@
     "formik": "^2.4.6",
     "jsonrepair": "^3.8.1",
     "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
     "multer": "^1.4.5-lts.1",
     "next": "14.2.14",
     "openai": "^4.67.1",

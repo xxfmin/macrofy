@@ -1,9 +1,16 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import logo from "../components/images/logo.png";
+import { Roboto } from "next/font/google";
 
-// Define the TypeScript interfaces (matching those in route.ts)
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["700"],
+});
+
 interface Macros {
   protein: number;
   fat: number;
@@ -66,23 +73,26 @@ export default function ImageRecognition() {
 
   return (
     <div
-      className="min-h-screen flex flex-col"
-      style={{
-        backgroundColor: "#f5f5dc", // cream background color for the entire screen
-      }}
+      className="bg-gradient-to-bl from-gray-900 to-blue-800 min-h-screen flex flex-col"
+      style={{}}
     >
       {/* Navigation Bar */}
-      <nav className="flex bg-black items-center pl-12 py-4 w-full">
-        <h1 className="text-white text-2xl custom-font big-text">macrofy</h1>
+      <nav className="flex items-center pt-3 pl-12 absolute z-50 w-screen">
+        <Image
+          src={logo}
+          className="pr-2 w-[40px]"
+          width={50}
+          height={50}
+          alt="logo"
+        />
+        <h1 className={`text-white text-3xl ${roboto.className}`}>macrofy</h1>
       </nav>
 
       {/* Main Content Split into Two Columns */}
-      <div className="flex flex-row w-full flex-grow">
+      <div className="flex flex-row w-full flex-grow pt-6">
         {/* Left Side: URL and Image */}
         <div className="w-1/2 p-8">
           <div className="border p-4 rounded-lg bg-white">
-            {" "}
-            {/* Added border, padding, and bg-white */}
             <form onSubmit={formik.handleSubmit} className="space-y-4 w-full">
               <div className="w-full">
                 <label
@@ -108,9 +118,10 @@ export default function ImageRecognition() {
                 disabled={loadBindings}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                {loadBindings ? "Loading..." : "Submit"}
+                {loadBindings ? "Submitting..." : "Submit"}
               </button>
             </form>
+
             {/* Image Preview */}
             {formik.values.image_url && (
               <div className="mt-4 flex items-center justify-center">
@@ -124,76 +135,91 @@ export default function ImageRecognition() {
                 />
               </div>
             )}
+
+            {/* Conditionally render the Add to log button */}
+            {response && (
+              <div className="flex justify-center mt-4">
+                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                  Add to log
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Right Side: Ingredients, Macros, and Total Macros */}
         <div className="w-1/2 p-8 space-y-8 overflow-y-auto">
-          {response && (
-            <>
-              {/* Ingredients Section */}
-              {response.ingredients && (
-                <div className="border p-4 rounded-lg bg-white">
-                  <h2 className="font-bold text-gray-800 text-xl">
-                    Ingredients
-                  </h2>
-                  <p>{response.ingredients.join(", ")}</p>
-                </div>
-              )}
+          {/* Ingredients Section */}
+          <div className="border p-4 rounded-lg bg-white">
+            <h2 className="font-bold text-gray-800 text-xl">Ingredients</h2>
+            <p>
+              {response && response.ingredients
+                ? response.ingredients.join(", ")
+                : "No ingredients available"}
+            </p>
+          </div>
 
-              {/* Macros Section */}
-              {response.macros && (
-                <div className="border p-4 rounded-lg bg-white">
-                  <h2 className="font-bold text-gray-800 text-xl">Macros</h2>
-                  <div className="grid grid-cols-2 gap-4">
-                    {Object.entries(response.macros).map(
-                      ([ingredient, macros]) => (
-                        <div
-                          key={ingredient}
-                          className="p-4 border rounded-lg shadow-md bg-gray-50"
-                        >
-                          <h3 className="text-gray-700 font-bold">
-                            {ingredient}
-                          </h3>
-                          <p>Protein: {macros.protein}g</p>
-                          <p>Fat: {macros.fat}g</p>
-                          <p>Carbs: {macros.carbs}g</p>
-                          <p>Calories: {macros.calories}</p>
-                        </div>
-                      )
-                    )}
+          {/* Macros Section */}
+          <div className="border p-4 rounded-lg bg-white">
+            <h2 className="font-bold text-gray-800 text-xl">Macros</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {response && response.macros ? (
+                Object.entries(response.macros).map(([ingredient, macros]) => (
+                  <div
+                    key={ingredient}
+                    className="p-4 border rounded-lg shadow-md bg-gray-50"
+                  >
+                    <h3 className="text-gray-700 font-bold">{ingredient}</h3>
+                    <p>Protein: {macros.protein}g</p>
+                    <p>Fat: {macros.fat}g</p>
+                    <p>Carbs: {macros.carbs}g</p>
+                    <p>Calories: {macros.calories}</p>
                   </div>
-                </div>
+                ))
+              ) : (
+                <p>No macros available</p>
               )}
+            </div>
+          </div>
 
-              {/* Total Macros Section */}
-              {response.total_macros && (
-                <div className="border p-4 rounded-lg bg-white">
-                  <h2 className="font-bold text-gray-800 text-xl">
-                    Total Macros
-                  </h2>
-                  <div className="grid grid-cols-4 gap-4">
-                    <div className="p-2 border rounded-lg text-center">
-                      <p className="font-bold">Protein</p>
-                      <p>{response.total_macros.protein}g</p>
-                    </div>
-                    <div className="p-2 border rounded-lg text-center">
-                      <p className="font-bold">Fat</p>
-                      <p>{response.total_macros.fat}g</p>
-                    </div>
-                    <div className="p-2 border rounded-lg text-center">
-                      <p className="font-bold">Carbs</p>
-                      <p>{response.total_macros.carbs}g</p>
-                    </div>
-                    <div className="p-2 border rounded-lg text-center">
-                      <p className="font-bold">Calories</p>
-                      <p>{response.total_macros.calories}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </>
-          )}
+          {/* Total Macros Section */}
+          <div className="border p-4 rounded-lg bg-white">
+            <h2 className="font-bold text-gray-800 text-xl">Total Macros</h2>
+            <div className="grid grid-cols-4 gap-4">
+              <div className="p-2 border rounded-lg text-center">
+                <p className="font-bold">Protein</p>
+                <p>
+                  {response && response.total_macros
+                    ? `${response.total_macros.protein}g`
+                    : "N/A"}
+                </p>
+              </div>
+              <div className="p-2 border rounded-lg text-center">
+                <p className="font-bold">Fat</p>
+                <p>
+                  {response && response.total_macros
+                    ? `${response.total_macros.fat}g`
+                    : "N/A"}
+                </p>
+              </div>
+              <div className="p-2 border rounded-lg text-center">
+                <p className="font-bold">Carbs</p>
+                <p>
+                  {response && response.total_macros
+                    ? `${response.total_macros.carbs}g`
+                    : "N/A"}
+                </p>
+              </div>
+              <div className="p-2 border rounded-lg text-center">
+                <p className="font-bold">Calories</p>
+                <p>
+                  {response && response.total_macros
+                    ? `${response.total_macros.calories}`
+                    : "N/A"}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

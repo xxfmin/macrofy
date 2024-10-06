@@ -1,64 +1,80 @@
-'use client';
-import Image from 'next/image';
-import { Roboto } from 'next/font/google';
-import axios from 'axios';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation' 
+"use client";
+import Image from "next/image";
+import { Roboto } from "next/font/google";
+import axios from "axios";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import logo from "../components/images/logo.png";
 
 const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['700'],
+  subsets: ["latin"],
+  weight: ["700"],
 });
 
 export default function CreateAccount() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const router = useRouter();
 
   const handleSignUp = async () => {
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     try {
-      console.log("Attempting to register user")
-      const response = await axios.post('http://localhost:4000/api/users/signup', {
-        username,
-        password,
-      });
-      console.log("Successfully registered User")
+      console.log("Attempting to register user");
+      const response = await axios.post(
+        "http://localhost:4000/api/users/signup",
+        {
+          username,
+          password,
+        }
+      );
+      console.log("Successfully registered User");
     } catch (error) {
       if (error.response) {
         setError(error.response.data.message);
       } else {
-        setError('An error occurred during signup.');
+        setError("An error occurred during signup.");
       }
-      console.error('Error during signup:', error);
+      console.error("Error during signup:", error);
     }
+    router.push("/Logs");
   };
 
   return (
     <div
-      className="bg-black w-screen h-screen flex-col"
+      className="bg-gradient-to-bl from-gray-900 to-blue-800 overflow-hidden w-screen h-screen flex-col"
       style={{
-        background: 'linear-gradient(to bottom left, #111, #000080)',
-        height: '100vh',
-        color: 'white',
+        height: "100vh",
+        color: "white",
       }}
     >
-      <nav className="flex bg-black items-center pl-12">
-        <Image src="/components/images/apple.jpg" width={50} height={50} alt="logo" />
-        <h1 className={`text-white text-2xl ${roboto.className}`}>macrofy</h1>
+      <nav className="flex items-center pt-3 pl-12 absolute z-50 w-screen">
+        <Image
+          src={logo}
+          className="pr-2 w-[40px]"
+          width={50}
+          height={50}
+          alt="logo"
+        />
+        <h1 className={`text-white text-3xl ${roboto.className}`}>macrofy</h1>
       </nav>
       <div className="h-full w-full flex justify-center items-center">
         <div className="bg-white h-[500px] w-96 mb-10 rounded-lg">
           <div className="flex justify-center mt-20">
-            <h1 className={`header-font text-black text-2xl font-bold ${roboto.className}`}>
-              Sign Up for Macrofy
+            <h1
+              className={`header-font text-black text-2xl font-bold ${roboto.className}`}
+            >
+              Sign Up for macrofy
             </h1>
           </div>
           <div className="p-6 flex flex-col ">
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
               <h1 className="text-black">Username:</h1>
             </label>
             <input
@@ -70,7 +86,10 @@ export default function CreateAccount() {
               className="mt-1 block w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
               placeholder="Enter your username"
             />
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mt-4">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mt-4"
+            >
               <h1 className="text-black">Password:</h1>
             </label>
             <input
@@ -82,8 +101,10 @@ export default function CreateAccount() {
               className="mt-1 block w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
               placeholder="Enter your password"
             />
-            {error && <p className="text-red-500 mt-2">{error}</p>} {/* Error Message */}
-            {success && <p className="text-green-500 mt-2">{success}</p>} {/* Success Message */}
+            {error && <p className="text-red-500 mt-2">{error}</p>}{" "}
+            {/* Error Message */}
+            {success && <p className="text-green-500 mt-2">{success}</p>}{" "}
+            {/* Success Message */}
             <div className="flex justify-center mt-12">
               <button
                 onClick={handleSignUp}

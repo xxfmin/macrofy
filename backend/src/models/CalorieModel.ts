@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 
 export interface CalorieLog extends mongoose.Document {
     food: string;
-    weight: string;
-    calories: string;
+    weight: number;
+    calories: number;
 }
 
 export const calorieSchematic = new Schema ({
@@ -14,11 +14,11 @@ export const calorieSchematic = new Schema ({
         required: true,
     },
     weight: {
-        type: String,
+        type: Number,
         required: true,
     },
     calories: {
-        type: String,
+        type: Number,
         required: true,
     },
 })

@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar/Navbar";
 import logo from "../components/images/logo.png"
 import Head from "next/head";
 
+
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["700"],
@@ -33,18 +34,15 @@ export default function CreateAccount() {
           password,
         }
       );
-
-      console.log("Successfully registered User", response.data);
-      setSuccess("Successfully registered User");
+      console.log("Successfully registered User");
       router.push("/Logs");
-    } catch (err) {
-      console.log(err);
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data.message);
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.message);
       } else {
-        setError("An error occurred during sign up");
+        setError("An error occurred during signup.");
       }
-      console.log("Error during signup: ", err);
+      console.error("Error during signup:", error);
     }
   };
 
@@ -62,10 +60,9 @@ export default function CreateAccount() {
       <Navbar />
       <div className="h-full w-full flex justify-center items-center">
         <div className="bg-white h-[500px] w-96 mb-10 rounded-lg">
-          <div className="flex flex-col justify-center items-center mt-20">
-            <Image src={logo} alt="logo" width={50} height={50} />
+          <div className="flex justify-center mt-20">
             <h1
-              className={`header-font text-black text-2xl font-bold ${roboto.className} mt-2`}
+              className={`header-font text-black text-2xl font-bold ${roboto.className}`}
             >
               Sign Up for macrofy
             </h1>
@@ -93,7 +90,7 @@ export default function CreateAccount() {
               <h1 className="text-black">Password:</h1>
             </label>
             <input
-              type="password"
+              type="password" // Changed to "password" for security
               id="password"
               name="password"
               value={password}
@@ -101,16 +98,15 @@ export default function CreateAccount() {
               className="mt-1 block w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black"
               placeholder="Enter your password"
             />
-            <div className="flex justify-center">
-              {error && <p className="text-red-500 mt-2">{error}</p>}
-              {success && <p className="text-green-500 mt-2">{success}</p>}
-            </div>
-
+            {error && <p className="text-red-500 mt-2">{error}</p>}{" "}
+            {/* Error Message */}
+            {success && <p className="text-green-500 mt-2">{success}</p>}{" "}
+            {/* Success Message */}
             <div className="flex justify-center mt-12">
               <button
                 onClick={handleSignUp}
                 type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
               >
                 Sign Up
               </button>

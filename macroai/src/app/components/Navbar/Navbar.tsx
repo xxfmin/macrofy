@@ -22,7 +22,7 @@ const Navbar = () => {
     router.push("/image-recognition");
   };
   const handleLogs = () => {
-    router.push("/Logs");
+    router.push("/profile");
   };
   const handleLogout = () => {
     logout()
@@ -58,7 +58,7 @@ const Navbar = () => {
           onClick={handleLogs}
           className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
         >
-          Logs
+          Profile
         </button>
         {!isAuthenticated ? (
           <>
@@ -96,6 +96,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

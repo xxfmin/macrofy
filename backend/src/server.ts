@@ -15,10 +15,6 @@ app.use('/api/users', userRoutes);
 
 const PORT = 4000;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 console.log("Connecting to database");
 mongoose.connect("mongodb+srv://felipemin03:2huXUS1CYtXXbsA0@macroai.jqjtu.mongodb.net/?retryWrites=true&w=majority&appName=macroai").then(() => {
     console.log("Connected to Database");

@@ -1,9 +1,11 @@
-"use client";
+"use client"; // Ensure this file is treated as a client component
 import Image from "next/image";
 import photo from "./components/images/cover-photo.png";
 import { useRouter } from "next/navigation";
 import { Roboto } from "next/font/google";
 import Navbar from "./components/Navbar/Navbar";
+import Head from 'next/head';
+
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -12,32 +14,19 @@ const roboto = Roboto({
 
 export default function Home() {
   const router = useRouter();
-  const handleHome = () => {
-    router.push("/");
-  };
+
   const handleLogin = () => {
     router.push("/login");
   };
   const handleSignup = () => {
     router.push("/signup");
   };
-  const handleLogMeal = () => {
-    router.push("/image-recognition");
-  };
-  const handleLogs = () => {
-    router.push("/Logs");
-  };
+
   return (
-    <div
-      className="bg-gradient-to-bl from-gray-900 to-blue-800 overflow-hidden h-screen w-screen flex-col"
-      style={{
-        height: "100%",
-        color: "white",
-      }}
-    >
-      <head>
+    <div className="bg-gradient-to-bl from-gray-900 to-blue-800 overflow-hidden h-screen w-screen flex-col">
+      <Head>
         <title>macrofy</title>
-      </head>
+      </Head>
       <Navbar />
       <div className="h-fit w-fit flex">
         <div className="flex h-screen w-1/3">
@@ -55,17 +44,13 @@ export default function Home() {
               </p>
               <div className="ml-7 mt-4 pl-2">
                 <button
-                  onClick={() => {
-                    handleLogin();
-                  }}
+                  onClick={handleLogin}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
                 >
                   Log in
                 </button>
                 <button
-                  onClick={() => {
-                    handleSignup();
-                  }}
+                  onClick={handleSignup}
                   className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
                 >
                   Sign up
@@ -77,8 +62,8 @@ export default function Home() {
         <div className="w-2/3 flex justify-center items-center">
           <Image
             src={photo}
-            className="w-[27rem] object-cover rounder-tl-extraLarge rounded-br-extraLarge rounded-lg"
-            alt="logo"
+            className="w-[27rem] object-cover rounded-tl-extraLarge rounded-br-extraLarge rounded-lg"
+            alt="cover photo"
           />
         </div>
       </div>

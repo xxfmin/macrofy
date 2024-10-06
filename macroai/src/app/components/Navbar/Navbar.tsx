@@ -4,7 +4,7 @@ import logo from "../images/logo.png";
 import { useRouter } from "next/navigation";
 import { Roboto } from "next/font/google";
 
-export default function () {
+const Navbar = () => {
   const router = useRouter();
   const handleHome = () => {
     router.push("/");
@@ -37,31 +37,31 @@ export default function () {
       <div className="flex items-center text-white space-x-8">
         <button
           onClick={handleHome}
-          className="text-l hover:text-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
         >
           Home
         </button>
         <button
           onClick={handleLogMeal}
-          className="text-l hover:text-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
         >
           Log Meal
         </button>
         <button
           onClick={handleLogs}
-          className="text-l hover:text-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
         >
           Logs
         </button>
         <button
           onClick={handleLogin}
-          className="text-l hover:text-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
         >
           Log In
         </button>
         <button
           onClick={handleSignup}
-          className="text-l hover:text-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
         >
           Sign Up
         </button>
@@ -69,3 +69,5 @@ export default function () {
     </nav>
   );
 }
+
+export default Navbar

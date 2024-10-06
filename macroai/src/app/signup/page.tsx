@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar/Navbar";
+import logo from "../components/images/logo.png"
 
 const roboto = Roboto({
   subsets: ["latin"],

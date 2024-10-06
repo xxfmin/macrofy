@@ -2,9 +2,13 @@
 import Image from "next/image";
 import logo from "../images/logo.png";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../../context/AuthContext"
+import { AiOutlineUser } from "react-icons/ai";
+
 
 const Navbar = () => {
   const router = useRouter();
+  const { isAuthenticated, user, logout} = useAuth()
   const handleHome = () => {
     router.push("/");
   };
@@ -20,6 +24,10 @@ const Navbar = () => {
   const handleLogs = () => {
     router.push("/Logs");
   };
+  const handleLogout = () => {
+    logout()
+    router.push("/")
+  }
   return (
     <nav className="flex items-center justify-between pt-3 pl-12 pr-12 absolute z-50 w-screen">
       <div className="flex items-center">
@@ -52,18 +60,39 @@ const Navbar = () => {
         >
           Logs
         </button>
-        <button
-          onClick={handleLogin}
-          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
-        >
-          Log In
-        </button>
-        <button
-          onClick={handleSignup}
-          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
-        >
-          Sign Up
-        </button>
+        {!isAuthenticated ? (
+          <>
+            <button
+              onClick={handleLogin}
+              className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+            >
+              Log In
+            </button>
+            <button
+              onClick={handleSignup}
+              className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+            >
+              Sign Up
+            </button>
+          </>
+        ): (
+          <>
+            {/* Show username and Log Out button if authenticated */}
+            <button
+              onClick={handleLogout}
+              className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+            >
+              Log Out
+            </button>
+            <div className="flex flex-row justify-center items-center ">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white">
+              <AiOutlineUser className="text-2xl" />
+             </div>
+              <span className="text-l font-bold ml-2">{user?.username}</span>
+            </div>
+            
+          </>
+        )}
       </div>
     </nav>
   );

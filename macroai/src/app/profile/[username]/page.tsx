@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import logo from "../components/images/logo.png";
+import logo from "../../components/images/logo.png"
 
 const roboto = Roboto({
   subsets: ["latin"],

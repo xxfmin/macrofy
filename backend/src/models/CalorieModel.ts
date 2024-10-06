@@ -3,21 +3,31 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 export interface CalorieLog extends mongoose.Document {
-    food: string;
-    weight: number;
+    meal: string;
     calories: number;
+    protein: number;
+    carbs: number;
+    fats: number;
 }
 
 export const calorieSchematic = new Schema ({
-    food: {
+    meal: {
         type: String,
         required: true,
     },
-    weight: {
+    calories: {
         type: Number,
         required: true,
     },
-    calories: {
+    protein: {
+        type: Number,
+        required: true,
+    },
+    carbs: {
+        type: Number,
+        required: true,
+    },
+    fats: {
         type: Number,
         required: true,
     },

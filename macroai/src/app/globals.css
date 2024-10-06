@@ -25,37 +25,3 @@ body {
     text-wrap: balance;
   }
 }
-
-@font-face {
-  font-family: 'Nexa Heavy';
-  src: url('./fonts/Nexa-Heavy.ttf') format('ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Cream Cake';
-  src: url('./fonts/Cream Cake.otf') format('otf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Nexa Thin';
-  src: url('./fonts/Nexa-Thin.ttf') format('ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.custom-font {
-  font-family: 'Cream Cake', sans-serif;
-}
-.header-font {
-  font-family: 'Nexa Heavy', sans-serif;
-}
-body {
-  font-family: 'Nexa Thin', sans-serif;
-}
-.big-text {
-  font-size: 30px;
-}

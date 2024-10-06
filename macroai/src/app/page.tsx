@@ -4,7 +4,7 @@ import photo from "./components/images/cover-photo.png";
 import { useRouter } from "next/navigation";
 import { Roboto } from "next/font/google";
 import Navbar from "./components/Navbar/Navbar";
-import Head from 'next/head';
+import Head from "next/head";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -31,13 +31,17 @@ export default function Home() {
         <div className="flex h-screen w-1/3">
           <div className="flex flex-row">
             <div className="flex flex-col ml-7 relative top-32">
-              <h1 className={`text-7xl pl-10 font-bold ${roboto.className}`}>
+              <h1
+                className={`text-7xl pl-10 font-bold text-white ${roboto.className}`}
+              >
                 Nourish Smart,
               </h1>
-              <h1 className={`text-7xl pl-10 font-bold ${roboto.className}`}>
+              <h1
+                className={`text-7xl pl-10 font-bold text-white ${roboto.className}`}
+              >
                 Achieve More.
               </h1>
-              <p className="pl-10 pt-6 mr-10 text-xl">
+              <p className="pl-10 pt-6 mr-10 text-xl text-white">
                 Welcome to our food analysis tool! Enter a picture of your meal,
                 and we'll instantly calculate its macros.
               </p>

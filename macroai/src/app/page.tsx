@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import photo from "./components/images/cover-photo.png";
-import logo from "./components/images/logo.png";
 import { useRouter } from "next/navigation";
 import { Roboto } from "next/font/google";
+import Navbar from "./components/Navbar/Navbar";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -12,31 +12,33 @@ const roboto = Roboto({
 
 export default function Home() {
   const router = useRouter();
+  const handleHome = () => {
+    router.push("/");
+  };
   const handleLogin = () => {
     router.push("/login");
   };
   const handleSignup = () => {
     router.push("/signup");
   };
+  const handleLogMeal = () => {
+    router.push("/image-recognition");
+  };
+  const handleLogs = () => {
+    router.push("/Logs");
+  };
   return (
     <div
       className="bg-gradient-to-bl from-gray-900 to-blue-800 overflow-hidden h-screen w-screen flex-col"
       style={{
-        height: "100%", // Full height of the viewport
-        color: "white", // Optional: to make the text visible
+        height: "100%",
+        color: "white",
       }}
     >
-      {" "}
-      <nav className="flex items-center pt-3 pl-12 absolute z-50 w-screen">
-        <Image
-          src={logo}
-          className="pr-2 w-[40px]"
-          width={50}
-          height={50}
-          alt="logo"
-        />
-        <h1 className={`text-white text-3xl ${roboto.className}`}>macrofy</h1>
-      </nav>
+      <head>
+        <title>macrofy</title>
+      </head>
+      <Navbar />
       <div className="h-fit w-fit flex">
         <div className="flex h-screen w-1/3">
           <div className="flex flex-row">

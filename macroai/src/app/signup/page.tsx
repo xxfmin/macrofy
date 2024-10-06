@@ -32,6 +32,7 @@ export default function CreateAccount() {
         }
       );
       console.log("Successfully registered User");
+      router.push("/Logs");
     } catch (error) {
       if (error.response) {
         setError(error.response.data.message);
@@ -40,7 +41,6 @@ export default function CreateAccount() {
       }
       console.error("Error during signup:", error);
     }
-    router.push("/Logs");
   };
 
   return (

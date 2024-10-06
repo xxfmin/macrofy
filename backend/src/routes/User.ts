@@ -49,13 +49,13 @@ router.post("/login", async (req: Request, res: Response) => {
         const user = await User.findOne({ username })
 
         if (!user) {
-            res.status(400).json({ message: "Invalid username or password"})
+            res.status(400).json({ message: "Invalid username"})
             return
         } 
         else {
             const passMatch = await bcrypt.compare(password, user.password)
             if (!passMatch) {
-                res.status(400).json({ message: "Invalid username or password"})
+                res.status(400).json({ message: "Invalid password"})
                 return
             }
             else{

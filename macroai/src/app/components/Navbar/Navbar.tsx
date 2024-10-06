@@ -18,7 +18,7 @@ const Navbar = () => {
     router.push("/image-recognition");
   };
   const handleLogs = () => {
-    router.push("/Logs");
+    router.push("/profile");
   };
   return (
     <nav className="flex items-center justify-between pt-3 pl-12 pr-12 absolute z-50 w-screen">
@@ -50,7 +50,7 @@ const Navbar = () => {
           onClick={handleLogs}
           className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
         >
-          Logs
+          Profile
         </button>
         <button
           onClick={handleLogin}
@@ -67,6 +67,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

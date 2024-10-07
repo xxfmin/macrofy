@@ -22,7 +22,7 @@ const Navbar = () => {
     router.push("/image-recognition");
   };
   const handleLogs = () => {
-    router.push("/profile");
+    router.push(`/profile/${user.username}`);
   };
   const handleLogout = () => {
     logout()
@@ -48,18 +48,7 @@ const Navbar = () => {
         >
           Home
         </button>
-        <button
-          onClick={handleLogMeal}
-          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
-        >
-          Log Meal
-        </button>
-        <button
-          onClick={handleLogs}
-          className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
-        >
-          Profile
-        </button>
+        
         {!isAuthenticated ? (
           <>
             <button
@@ -78,6 +67,18 @@ const Navbar = () => {
         ): (
           <>
             {/* Show username and Log Out button if authenticated */}
+            <button
+              onClick={handleLogMeal}
+              className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+            >
+              Log Meal
+            </button>
+            <button
+              onClick={handleLogs}
+              className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"
+            >
+              Profile
+            </button>
             <button
               onClick={handleLogout}
               className="text-l hover:bg-blue-400 transition duration-200 border border-white rounded-full py-1 px-4"

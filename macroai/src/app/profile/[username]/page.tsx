@@ -13,15 +13,6 @@ const roboto = Roboto({
 });
 
 export default function CalorieLog() {
-  const [meal, setMeal] = useState("");
-  const [protein, setProtein] = useState("");
-  const [carbs, setCarbs] = useState("");
-  const [fats, setFats] = useState("");
-  const [calories, setCalories] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const handleAddMeal = (async) => {};
   const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {

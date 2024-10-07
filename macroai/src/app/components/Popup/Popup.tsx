@@ -4,6 +4,7 @@ import logo from "../images/logo.png";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
+// import { useAuth } from "../../context/AuthContext/";
 
 const Popup = () => {
   const [meal, setMeal] = useState("");
@@ -14,36 +15,42 @@ const Popup = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  // const {user} = useAuth();
 
   const handleAddMeal = async () => {
-    setError("");
-    setSuccess("");
+        setError("");
+        setSuccess("");
 
-    try {
-      console.log("Adding meal");
-      const response = await axios.post(
-        "http://localhost:4000/api/users/signup",
-        {
-          meal,
-          calories,
-          protein,
-          carbs,
-          fats,
+        const proteinInt = parseInt(protein);
+        const carbsInt = parseInt(carbs);
+        const fatsInt = parseInt(fats);
+        const caloriesInt = parseInt(calories);
+
+        try {
+            console.log("Adding meal");
+            const response = await axios.post(
+            "http://localhost:4000/api/meals/submitmeal",
+            {
+                // username: user.username,
+                meal,
+                calories: caloriesInt,
+                protein: proteinInt,
+                carbs: carbsInt,
+                fats: fatsInt,
+            }
+            );
+            console.log("Successfully added meal");
+            setShowPopup(false);
+        } catch (err) {
+            console.log(err);
+            if (err.response) {
+            setError(err.response.data.message);
+            } else {
+            setError("An error occurred during meal addition");
+            }
+            console.error("Error during signup:", error);
         }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    // Add meal logic
-    console.log({
-      meal,
-      calories,
-      protein,
-      carbs,
-      fats,
-    });
-    setShowPopup(false); // Close popup after adding the meal
-  };
+    };
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -148,6 +155,10 @@ const Popup = () => {
               </button>
             </div>
           </div>
+          {error && <p className="text-red-500 mt-2">{error}</p>}{" "}
+            {/* Error Message */}
+            {success && <p className="text-green-500 mt-2">{success}</p>}{" "}
+            {/* Success Message */}
         </div>
       )}
     </div>

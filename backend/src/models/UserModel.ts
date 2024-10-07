@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import {calorieSchematic, CalorieLog} from "./CalorieModel"
 
 const Schema = mongoose.Schema
 
@@ -6,9 +7,7 @@ const Schema = mongoose.Schema
 export interface User extends mongoose.Document {
     username: string, 
     password: string, 
-    picture: string,
-    weightGoal: number,
-    startingWeight: number,
+    meals: CalorieLog[],
 }
 
 export const userSchematic = new Schema({
@@ -22,18 +21,11 @@ export const userSchematic = new Schema({
         required: true,
         unique: true,
     },
-    picture: {
-        type: String,
-        required: false
-    },
-    weightGoal: {
-        type: Number,
-        required: false
-    },
-    startingWeight: {
-        type: Number,
-        required: false
-    },
+    meals: {
+        type: [calorieSchematic],
+        required: true,
+        default: [],
+    }
 })
 
 const User = mongoose.model<User>('User', userSchematic);

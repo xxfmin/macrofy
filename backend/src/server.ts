@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import userRoutes from './routes/User'; 
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import calorieRoutes from './routes/Calories';
 
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended : true }));
 
 app.use('/api/users', userRoutes);
+app.use('/api/meals', calorieRoutes);
 
 const PORT = 4000;
 

@@ -1,11 +1,9 @@
 "use client";
-import Image from "next/image";
 import { Roboto } from "next/font/google";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar/Navbar";
-import logo from "../components/images/logo.png"
 import Head from "next/head";
 
 
@@ -35,8 +33,10 @@ export default function CreateAccount() {
         }
       );
       console.log("Successfully registered User");
+      setSuccess(response.data.message)
       router.push(`/profile/${username}`);
-    } catch (error) {
+    } catch (error);
+    ) {
       if (error.response) {
         setError(error.response.data.message);
       } else {

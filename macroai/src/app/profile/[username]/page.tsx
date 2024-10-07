@@ -7,11 +7,6 @@ import withAuth from "@/app/components/withAuth";
 import axios from "axios";
 import { useAuth } from "@/app/context/AuthContext"
 
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["700"],
-});
-
 interface Meal {
   meal: string;
   calories: number;
@@ -25,6 +20,7 @@ const CalorieLog = () => {
   const [currentDate, setCurrentDate] = useState("");
   const [meals, setMeals] = useState<Meal[]>([])
   const [error, setError] = useState("")
+  const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
   const { user } = useAuth()
   const [totalCalorie, setTotalCalorie] = useState(0);
   const [totalProtein, setTotalProtein] =  useState(0);
@@ -57,6 +53,21 @@ const CalorieLog = () => {
 
   useEffect(() => {
     console.log("Updated meals:", meals);
+
+    const filterMeals = (meals:Meal[]) => {
+      const dateFilteredMeals = meals.filter((meals) => {
+        const mealDateConvert = new Date(meals.date)
+        const formattedDate = mealDateConvert.toLocaleString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric"
+        })
+        return formattedDate === currentDate
+      })
+      console.log(dateFilteredMeals)
+      return dateFilteredMeals
+    }
+
     const calculate = (meals:Meal[]) => {
       let totalCal = 0;
       let totalPro = 0;
@@ -76,9 +87,10 @@ const CalorieLog = () => {
       setTotalCarbs(totalCar)
       setTotalFat(totalFats)
     }
-
-    calculate(meals)
-  }, [meals]);
+    
+    setFilteredMeals(filterMeals(meals))
+    calculate(filteredMeals)
+  }, [meals, currentDate]);
 
   return (
     <div
@@ -151,8 +163,8 @@ const CalorieLog = () => {
           <h1 className="text-black text-3xl font-bold mb-6">Meals Logged</h1>
 
           {/* Meals Logged Content (Placeholder for Actual Meals) */}
-          <div className="space-y-4 w-full"> {/* Added spacing between meals */}
-            {meals.map((meal, index) => (
+          <div className="space-y-4 w-full"> 
+            {filteredMeals.map((meal, index) => (
             <div key={index} className="bg-gray-200 p-4 rounded-lg shadow-md w-full">
                 <h2 className="text-xl font-semibold text-black">{meal.meal}</h2>
                 <div className="flex flex-row space-x-4">

@@ -71,5 +71,26 @@ router.post("/login", async (req: Request, res: Response) => {
     }
 })
 
+router.get("/get-user/:username", async(req : Request, res: Response) => {
+
+    try {
+        const username = req.params.username
+        const user = await User.findOne({ username })
+
+        if (!user){
+            res.status(404).json({message: "User not found"})
+            return
+        }
+
+        res.status(200).json({
+            "username": user.username,
+            "meals": user.meals
+        })
+        return
+    } catch(error) {
+        res.status(500).json({error: error})
+    }
+})
+
 // Export the router
 export default router;

@@ -35,15 +35,15 @@ export default function Login() {
       router.push(`/profile/${response.data.UserProfile.username}`);
     } catch (err) {
       console.error("Login error: ", err);
-      setError("Something Happened");
+      setError("Unable to login");
     }
   };
 
   return (
     <div className="bg-gradient-to-bl from-gray-900 to-blue-800 w-screen h-screen flex-col text-white">
-      <head>
+      <Head>
         <title>macrofy</title>
-      </head>
+      </Head>
       <Navbar />
       <div className="h-full w-full flex justify-center items-center">
         <div className="bg-white h-[500px] w-96 mb-10 rounded-lg">
@@ -78,7 +78,11 @@ export default function Login() {
               className="mt-1 block w-full px-3 py-2 border border-gray-400 text-black rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder="Enter your password"
             />
-            <div className="flex justify-center mt-12">
+            <div className="flex flex-col justify-center items-center mt-4">
+              <div className="mb-2">
+                {error && <p className="text-red-500">{error}</p>}
+                {success && <p className="text-green-500">{success}</p>}
+              </div>
               <button
                 onClick={handleSubmit}
                 type="button"
@@ -87,8 +91,6 @@ export default function Login() {
                 Log in
               </button>
             </div>
-            {error && <p className="text-red-500">{error}</p>}
-            {success && <p className="text-green-500">{success}</p>}
           </div>
         </div>
       </div>

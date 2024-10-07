@@ -23,13 +23,15 @@ router.post("/submitmeal", async (req: Request, res: Response) => {
       return;
     }
 
+    const date = new Date().toISOString()
+
     const newCalorieLog = new CalorieLog({
-      username,
       meal,
       protein,
       calories,
       carbs,
       fats,
+      date
     });
 
     // add log to user's meal array (felipe)

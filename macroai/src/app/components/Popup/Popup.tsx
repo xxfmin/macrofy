@@ -4,7 +4,7 @@ import logo from "../images/logo.png";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
-// import { useAuth } from "../../context/AuthContext/";
+import { useAuth } from "../../context/AuthContext";
 
 const Popup = () => {
   const [meal, setMeal] = useState("");
@@ -15,7 +15,7 @@ const Popup = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  // const {user} = useAuth();
+  const {user} = useAuth();
 
   const handleAddMeal = async () => {
         setError("");
@@ -31,7 +31,7 @@ const Popup = () => {
             const response = await axios.post(
             "http://localhost:4000/api/meals/submitmeal",
             {
-                // username: user.username,
+                username: user.username,
                 meal,
                 calories: caloriesInt,
                 protein: proteinInt,
@@ -44,9 +44,9 @@ const Popup = () => {
         } catch (err) {
             console.log(err);
             if (err.response) {
-            setError(err.response.data.message);
+              setError(err.response.data.message);
             } else {
-            setError("An error occurred during meal addition");
+              setError("An error occurred during meal addition");
             }
             console.error("Error during signup:", error);
         }

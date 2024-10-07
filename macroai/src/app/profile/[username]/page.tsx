@@ -1,31 +1,35 @@
 "use client";
 import { Roboto } from "next/font/google";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import Navbar from "@/app/components/Navbar/Navbar";
 import Popup from "@/app/components/Popup/Popup";
 import withAuth from "@/app/components/withAuth";
-
+import axios from "axios";
+import { useAuth } from "@/app/context/AuthContext"
 
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["700"],
 });
 
-export default function CalorieLog() {
+interface Meal {
+  meal: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fats: number;
+  date: string;
+}
+
 const CalorieLog = () => {
-  const [meal, setMeal] = useState("");
-  const [protein, setProtein] = useState("");
-  const [carbs, setCarbs] = useState("");
-  const [fats, setFats] = useState("");
-  const [calories, setCalories] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const handleAddMeal = async() => {};
   const [currentDate, setCurrentDate] = useState("");
+  const [meals, setMeals] = useState<Meal[]>([])
+  const [error, setError] = useState("")
+  const { user } = useAuth()
+  const [totalCalorie, setTotalCalorie] = useState(0);
+  const [totalProtein, setTotalProtein] =  useState(0);
+  const [totalCarbs, setTotalCarbs] =  useState(0);
+  const [totalFat, setTotalFat] = useState(0);
 
   useEffect(() => {
     const today = new Date();
@@ -35,7 +39,46 @@ const CalorieLog = () => {
       year: "numeric",
     });
     setCurrentDate(formattedDate);
-  }, []);
+
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/users/get-user/${user.username}`)
+        console.log(response)
+        setMeals(response.data.meals)
+      } catch (err) {
+        console.log(err)
+        setError("Unable to fetch user")
+      }
+    }
+
+    fetchUser()
+
+  }, [user.username]);
+
+  useEffect(() => {
+    console.log("Updated meals:", meals);
+    const calculate = (meals:Meal[]) => {
+      let totalCal = 0;
+      let totalPro = 0;
+      let totalCar = 0;
+      let totalFats = 0;
+
+      for (let i = 0; i < meals.length; i++){
+        totalCal += meals[i].calories
+        totalPro += meals[i].protein
+        totalCar += meals[i].carbs
+        totalFats += meals[i].fats
+      }
+
+      
+      setTotalCalorie(totalCal)
+      setTotalProtein(totalPro)
+      setTotalCarbs(totalCar)
+      setTotalFat(totalFats)
+    }
+
+    calculate(meals)
+  }, [meals]);
 
   return (
     <div
@@ -71,7 +114,7 @@ const CalorieLog = () => {
 
             {/* Total Calorie Div */}
             <div className="border border-gray-200 bg-white rounded-lg mb-8 p-8 shadow-md text-center">
-              <h1 className="text-6xl text-black font-semibold">69420</h1>
+              <h1 className="text-6xl text-black font-semibold">{totalCalorie}</h1>
               <p className="text-gray-600 text-xl mt-2">Total Calories</p>
             </div>
 
@@ -79,15 +122,15 @@ const CalorieLog = () => {
             <div className="grid grid-cols-3 gap-8 mb-8">
               <div className="flex flex-col bg-white items-center border border-gray-200 p-6 rounded-lg shadow-md">
                 <h2 className="text-xl text-black font-medium">Protein</h2>
-                <p className="text-black font-semibold text-lg">69g</p>
+                <p className="text-black font-semibold text-lg">{totalProtein}g</p>
               </div>
               <div className="flex flex-col bg-white items-center border border-gray-200 p-6 rounded-lg shadow-md">
                 <h2 className="text-xl text-black font-medium">Carbs</h2>
-                <p className="text-black font-semibold text-lg">69g</p>
+                <p className="text-black font-semibold text-lg">{totalCarbs}g</p>
               </div>
               <div className="flex flex-col bg-white items-center border border-gray-200 p-6 rounded-lg shadow-md">
                 <h2 className="text-xl text-black font-medium">Fat</h2>
-                <p className="text-black font-semibold text-lg">69g</p>
+                <p className="text-black font-semibold text-lg">{totalFat}g</p>
               </div>
             </div>
           </div>
@@ -108,14 +151,22 @@ const CalorieLog = () => {
           <h1 className="text-black text-3xl font-bold mb-6">Meals Logged</h1>
 
           {/* Meals Logged Content (Placeholder for Actual Meals) */}
-          <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-md w-full text-black mb-2">
-            <p className="text-lg text-gray-600">Meal 1</p>
-          </div>
-          <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-md w-full text-black mb-2">
-            <p className="text-lg text-gray-600">Meal 2</p>
-          </div>
-          <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-md w-full text-black mb-2">
-            <p className="text-lg text-gray-600">Meal 3</p>
+          <div className="space-y-4 w-full"> {/* Added spacing between meals */}
+            {meals.map((meal, index) => (
+            <div key={index} className="bg-gray-200 p-4 rounded-lg shadow-md w-full">
+                <h2 className="text-xl font-semibold text-black">{meal.meal}</h2>
+                <div className="flex flex-row space-x-4">
+                  <div className="">
+                    <p className="text-black">Calories: {meal.calories}</p>
+                    <p className="text-black">Protein: {meal.protein}g</p>
+                  </div>
+                  <div className="">
+                    <p className="text-black">Carbs: {meal.carbs}g</p>
+                    <p className="text-black">Fats: {meal.fats}g</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ export default function CreateAccount() {
         }
       );
       console.log("Successfully registered User");
-      router.push("/Logs");
+      router.push(`/profile/${username}`);
     } catch (error) {
       if (error.response) {
         setError(error.response.data.message);

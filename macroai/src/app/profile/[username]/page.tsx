@@ -14,6 +14,7 @@ const roboto = Roboto({
   weight: ["700"],
 });
 
+export default function CalorieLog() {
 const CalorieLog = () => {
   const [meal, setMeal] = useState("");
   const [protein, setProtein] = useState("");

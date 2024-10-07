@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import {calorieSchematic, CalorieLog} from "./CalorieModel"
 
+import {calorieSchematic, CalorieLog} from "./CalorieModel"
 const Schema = mongoose.Schema
 
 // Create an interface for users

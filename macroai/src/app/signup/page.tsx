@@ -5,6 +5,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar/Navbar";
+import logo from "../components/images/logo.png"
+import Head from "next/head";
+
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -51,9 +54,9 @@ export default function CreateAccount() {
         color: "white",
       }}
     >
-      <head>
+      <Head>
         <title>macrofy</title>
-      </head>
+      </Head>
       <Navbar />
       <div className="h-full w-full flex justify-center items-center">
         <div className="bg-white h-[500px] w-96 mb-10 rounded-lg">

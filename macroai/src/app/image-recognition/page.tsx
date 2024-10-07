@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Roboto } from "next/font/google";
 import Navbar from "../components/Navbar/Navbar";
+import Head from "next/head";
+import withAuth from "../components/withAuth"
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -27,7 +29,7 @@ interface ResponseData {
   total_macros: Macros;
 }
 
-export default function ImageRecognition() {
+const ImageRecognition: React.FC = () => {
   const [loadBindings, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<ResponseData | null>(null);
@@ -76,9 +78,9 @@ export default function ImageRecognition() {
       className="bg-gradient-to-bl from-gray-900 to-blue-800 min-h-screen flex flex-col"
       style={{}}
     >
-      <head>
+      <Head>
         <title>macrofy</title>
-      </head>
+      </Head>
       <Navbar />
 
       {/* Main Content Split into Two Columns */}
@@ -218,3 +220,5 @@ export default function ImageRecognition() {
     </div>
   );
 }
+
+export default withAuth(ImageRecognition)
